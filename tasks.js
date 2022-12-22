@@ -39,6 +39,9 @@ function onDataReceived(text) {
   }
   else if(text === 'hello\n'){
     hello();
+  } 
+  else if(text === 'help\n'){
+    help();
   }
   else{
     unknownCommand(text);
@@ -67,6 +70,18 @@ function hello(){
   console.log('hello!')
 }
 
+/**
+ * Lists all the commands
+ *
+ * @returns {void}
+ */
+function help(){
+  let allCommands = ["hello", "quit", "exit", "help"]
+  console.log("\nThe commands are: \n")
+  allCommands.forEach((e)=> {
+    console.log(e)
+  })
+}
 
 /**
  * Exits the application
