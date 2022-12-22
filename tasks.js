@@ -46,6 +46,9 @@ function onDataReceived(text) {
   else if(text === 'list\n'){
     list();
   }
+  else if(text.split(" ")[0] === 'add'){
+    add(text);
+  }
   else{
     unknownCommand(text);
   }
@@ -102,17 +105,36 @@ function help(){
 }
 
 /**
- * Exits the application
+ * List all tasks
  *
  * @returns {void}
  */
 
-let tasksList = ["task 1", "task 2"]
+let tasksList = []
 
 function list(){
+  if(tasksList.length === 0) {
+    console.log("no tasks to do")
+  }
   tasksList.forEach((element, index) => {
     console.log(`${index + 1} - [ ] ${element}`)
   })
+}
+
+/**
+ * Add a task 
+ *
+ * @returns {void}
+ */
+
+function add(task){
+  if(!task) {
+    console.error("error needs an argument")
+  } else {
+    task = task.replace('\n', '').trim()
+    task = task.split(" ").slice(1).join(' ');
+    tasksList.push(task)
+  }
 }
 
 /**
