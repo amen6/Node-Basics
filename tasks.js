@@ -98,7 +98,11 @@ function hello(data){
 let allCommands = [{command : "hello(args)", explanation : "Says Hello <args>"},
     {command : "quit", explanation: "Exits the application"},
     {command : "exit", explanation: "Exits the application"},
-    {command : "help", explanation: "List all commands"}]
+    {command : "help", explanation: "List all commands"},
+    {command : "list", explanation: "List all tasks"},
+    {command : "add (args)", explanation: "Add the <args> as task"},
+    {command : "remove/remove <num>", explanation: "remove last task / remove <num> task "}
+  ]
 
 function help(){
   console.log("\nThe commands are: \n")
