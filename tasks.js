@@ -86,10 +86,13 @@ function hello(data){
  * @returns {void}
  */
 function help(){
-  let allCommands = ["hello", "quit", "exit", "help"]
+  let allCommands = [{command : "hello(args)", explanation : "Says Hello <args>"},
+    {command : "quit", explanation: "Exits the application"},
+    {command : "exit", explanation: "Exits the application"},
+    {command : "help", explanation: "List all commands"}]
   console.log("\nThe commands are: \n")
   allCommands.forEach((e)=> {
-    console.log(e)
+    console.log(`|${e.command}|    ${e.explanation}`)
   })
 }
 
