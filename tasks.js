@@ -43,6 +43,9 @@ function onDataReceived(text) {
   else if(text === 'help\n'){
     help();
   }
+  else if(text === 'list\n'){
+    list();
+  }
   else{
     unknownCommand(text);
   }
@@ -85,14 +88,30 @@ function hello(data){
  *
  * @returns {void}
  */
-function help(){
-  let allCommands = [{command : "hello(args)", explanation : "Says Hello <args>"},
+
+let allCommands = [{command : "hello(args)", explanation : "Says Hello <args>"},
     {command : "quit", explanation: "Exits the application"},
     {command : "exit", explanation: "Exits the application"},
     {command : "help", explanation: "List all commands"}]
+
+function help(){
   console.log("\nThe commands are: \n")
   allCommands.forEach((e)=> {
     console.log(`|${e.command}|    ${e.explanation}`)
+  })
+}
+
+/**
+ * Exits the application
+ *
+ * @returns {void}
+ */
+
+let tasksList = ["task 1", "task 2"]
+
+function list(){
+  tasksList.forEach((element, index) => {
+    console.log(`${index + 1} - [ ] ${element}`)
   })
 }
 
