@@ -49,6 +49,9 @@ function onDataReceived(text) {
   else if(text.split(" ")[0] === 'add'){
     add(text);
   }
+  else if(text.split(" ")[0] === 'remove' || text === `remove\n`){
+    remove(text);
+  }
   else{
     unknownCommand(text);
   }
@@ -134,6 +137,23 @@ function add(task){
     task = task.replace('\n', '').trim()
     task = task.split(" ").slice(1).join(' ');
     tasksList.push(task)
+  }
+}
+
+/**
+ * Remove a task 
+ *
+ * @returns {void}
+ */
+
+function remove(removable){
+  if(removable === `remove\n`) {
+    return tasksList.pop();
+  } else {
+    removable = removable.replace('\n', '').trim()
+    removable = removable.split(" ").slice(1).join(' ');
+    (typeof parseInt(removable) == 'number') ? tasksList.splice(removable - 1,1) : console.log("please enter a valid number");
+    
   }
 }
 
