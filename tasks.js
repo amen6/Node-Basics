@@ -155,9 +155,9 @@ function remove(removable){
     return tasksList.pop();
   } else {
     removable = removable.replace('\n', '').trim()
-    removable = removable.split(" ").slice(1).join(' ');
-    (typeof parseInt(removable) == 'number') ? tasksList.splice(removable - 1,1) : console.log("please enter a valid number");
-    
+    removable = parseInt(removable.split(" ").slice(1).join(' '));
+    tasksList.splice(removable - 1,1);
+    if(removable > tasksList.length) console.log("number does not exist")
   }
 }
 
