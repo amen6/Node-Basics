@@ -112,6 +112,8 @@ let allCommands = [{command : "hello(args)", explanation : "Says Hello <args>"},
     {command : "add (args)", explanation: "Add the <args> as task"},
     {command : "remove/remove <num>", explanation: "remove last task / remove <num> task "},
     {command : "edit <task>/edit <num> <task>", explanation: "change last task to <task>/ change <num> task to <task>"},
+    {command : "check <num>", explanation: "check <num> task with [✓]"},
+    {command : "uncheck <num>", explanation: "uncheck <num> task"}
   ]
 
 function help(){
