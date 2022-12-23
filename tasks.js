@@ -56,9 +56,10 @@ function onDataReceived(text) {
     if( text === `edit\n`) return console.log("error");
     edit(text);
   }
-  else if(text.split(" ")[0] === 'check'){
-    if( text === `check\n`) return console.log("error");
-    check(text);
+  else if(text.split(" ")[0] === 'check' || text.split(" ")[0] === 'uncheck' || text === `check\n` || text === `uncheck\n`){
+    if( text === `check\n`) return console.log("error please insert a number");
+    if( text === `uncheck\n`) return console.log("error please insert a number");
+    checkAndUncheck(text);
   }
   else{
     unknownCommand(text);
@@ -146,7 +147,7 @@ function add(task){
   if(!task) {
     console.error("error needs an argument")
   } else {
-    task = task.replace('\n', '').trim()
+    task = task.trim()
     task = task.split(" ").slice(1).join(' ');
     tasksList.push("- [ ] " + task)
   }
@@ -162,7 +163,7 @@ function remove(removable){
   if(removable === `remove\n`) {
     return tasksList.pop();
   } else {
-    removable = removable.replace('\n', '').trim()
+    removable = removable.trim()
     removable = parseInt(removable.split(" ").slice(1).join(' '));
     tasksList.splice(removable - 1,1);
     if(removable > tasksList.length) console.log("number does not exist")
@@ -191,13 +192,18 @@ function edit(newTask){
  * @returns {void}
  */
 
-function check(taskNum){
-  taskNum = taskNum.replace('\n', '').trim();
+function checkAndUncheck(taskNum){
+  let type = taskNum.trim().split(" ")[0];
+  taskNum = taskNum.trim();
   taskNum = parseInt(taskNum.split(" ").slice(1).join(' '));
   if(taskNum > tasksList.length) {
-    console.log("number does not exist")
-  } else {
-    tasksList[taskNum -1] = tasksList[taskNum -1].replace("[ ]", "[✓]")
+    return console.log("number does not exist")
+  }
+  if(type === "check") {
+    return tasksList[taskNum -1] = tasksList[taskNum -1].replace("[ ]", "[✓]")
+  } 
+  if(type === "uncheck") {
+    return tasksList[taskNum -1] = tasksList[taskNum -1].replace("[✓]", "[ ]")
   }
 }
 
