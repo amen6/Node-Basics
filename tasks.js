@@ -15,8 +15,51 @@ function startApp(name){
   process.stdin.on('data', onDataReceived);
   console.log(`Welcome to ${name}'s application!`)
   console.log("--------------------")
+  readData()
 }
 
+// To include the File System module
+const fs = require('fs');
+
+// To save the tasks every time the program is closed
+function saveData() {
+  let cleanedTasksList = tasksList.map(e => {
+    return e.replace("- [ ] ", "")
+  })
+  let jsonData = JSON.stringify(cleanedTasksList)
+
+  try {
+    fs.writeFileSync("db.json", jsonData, error => {
+      if (error) throw error;
+      console.log("data was saved")
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// Load data on start
+function readData(){
+  fs.readFile("db.json", "utf-8", (error, data) => {
+    try {
+      data = JSON.parse(data)
+      tasksList =  data.map(e => {
+      return "- [ ] " + e; 
+      })
+    } catch (error) {
+      if(error == "TypeError: Cannot read properties of null (reading 'map')") {
+        return
+      }
+      if(error.code === "ENOENT") {
+        return console.log("Database not found!")
+      }
+      if(error.toString().startsWith("SyntaxError")) {
+        return
+      }
+      console.log(error)
+    }
+  })
+}
 
 /**
  * Decides what to do depending on the data that was received
@@ -35,6 +78,7 @@ function startApp(name){
  */
 function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
+    saveData();
     quit();
   }
   else if(text === 'hello\n' || text.split(" ")[0] === 'hello'){
