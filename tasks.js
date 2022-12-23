@@ -18,6 +18,9 @@ function startApp(name){
   readData()
 }
 
+let databaseName = process.argv[2]
+databaseName == undefined ? databaseName = "db.json" : null;
+
 // To include the File System module
 const fs = require('fs');
 
@@ -29,7 +32,7 @@ function saveData() {
   let jsonData = JSON.stringify(cleanedTasksList)
 
   try {
-    fs.writeFileSync("db.json", jsonData, error => {
+    fs.writeFileSync(databaseName, jsonData, error => {
       if (error) throw error;
       console.log("data was saved")
     })
@@ -40,7 +43,7 @@ function saveData() {
 
 // Load data on start
 function readData(){
-  fs.readFile("db.json", "utf-8", (error, data) => {
+  fs.readFile(databaseName, "utf-8", (error, data) => {
     try {
       data = JSON.parse(data)
       tasksList =  data.map(e => {
