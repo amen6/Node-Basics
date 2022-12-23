@@ -56,6 +56,10 @@ function onDataReceived(text) {
     if( text === `edit\n`) return console.log("error");
     edit(text);
   }
+  else if(text.split(" ")[0] === 'check'){
+    if( text === `check\n`) return console.log("error");
+    check(text);
+  }
   else{
     unknownCommand(text);
   }
@@ -128,7 +132,7 @@ function list(){
     console.log("no tasks to do")
   }
   tasksList.forEach((element, index) => {
-    console.log(`${index + 1} - [ ] ${element}`)
+    console.log(`${index + 1} ${element}`)
   })
 }
 
@@ -144,7 +148,7 @@ function add(task){
   } else {
     task = task.replace('\n', '').trim()
     task = task.split(" ").slice(1).join(' ');
-    tasksList.push(task)
+    tasksList.push("- [ ] " + task)
   }
 }
 
@@ -178,6 +182,22 @@ function edit(newTask){
   } else {
     task = task.join(" ");
     tasksList[tasksList.length -1] = task;
+  }
+}
+
+/**
+ * check a task 
+ *
+ * @returns {void}
+ */
+
+function check(taskNum){
+  taskNum = taskNum.replace('\n', '').trim();
+  taskNum = parseInt(taskNum.split(" ").slice(1).join(' '));
+  if(taskNum > tasksList.length) {
+    console.log("number does not exist")
+  } else {
+    tasksList[taskNum -1] = tasksList[taskNum -1].replace("[ ]", "[✓]")
   }
 }
 
