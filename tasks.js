@@ -52,6 +52,10 @@ function onDataReceived(text) {
   else if(text.split(" ")[0] === 'remove' || text === `remove\n`){
     remove(text);
   }
+  else if(text.split(" ")[0] === 'edit'){
+    if( text === `edit\n`) return console.log("error");
+    edit(text);
+  }
   else{
     unknownCommand(text);
   }
@@ -91,7 +95,7 @@ function hello(data){
 
 /**
  * Lists all the commands
- *
+ *amen6
  * @returns {void}
  */
 
@@ -158,6 +162,22 @@ function remove(removable){
     removable = parseInt(removable.split(" ").slice(1).join(' '));
     tasksList.splice(removable - 1,1);
     if(removable > tasksList.length) console.log("number does not exist")
+  }
+}
+
+/**
+ * Edit a task 
+ *
+ * @returns {void}
+ */
+
+function edit(newTask){
+  let task = newTask.trim().split(" ").slice(1);
+  if(Number.isInteger(parseInt(task[0]))){
+    tasksList[parseInt(task[0] -1 )] = task.slice(1).join(" ");
+  } else {
+    task = task.join(" ");
+    tasksList[tasksList.length -1] = task;
   }
 }
 
